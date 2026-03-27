@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Login Page -->
+    <section id="login" class="login content-section">
+        <div class="login-wrapper">
+            <div class="login-container glass-card">
+
+                <div class="login-header">
+                    <div class="logo-circle">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h2 id="welcome-message">Welcome Back</h2>
+                    <p>Sign in to access the POS System</p>
+                </div>
+
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="username" placeholder="Enter your username" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="login-btn" class="btn-primary login-btn">Login to Dashboard</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div id="main-app" class="main-content hidden">
+        <header class="system-header">
+            <div class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="logo-icon">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                POS System
+            </div>
+            
+            <nav>
+                <a href="#" class="nav-link nav-dashboard active" data-target="dashboard">Dashboard</a>
+                <a href="#" class="nav-link nav-orders" data-target="orders">Orders</a>
+                <a href="#" class="nav-link nav-items" data-target="items">Items</a>
+                <a href="#" class="nav-link nav-customers" data-target="customers">Customers</a>
+                <a href="#" class="nav-link nav-history" data-target="history">History</a>
+            </nav>
+            <div class="header-actions">
+                <div class="accent-picker" id="accent-picker">
+                    <button id="color-theme-circle" class="color-circle" type="button" aria-label="Choose accent color" aria-expanded="false"></button>
+                    <div id="accent-palette" class="accent-palette hidden" role="menu" aria-label="Accent color options">
+                        <button class="accent-swatch" type="button" data-color="#f04b66" style="--swatch:#f04b66" aria-label="Rose accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#ff8c00" style="--swatch:#ff8c00" aria-label="Orange accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#f1c40f" style="--swatch:#f1c40f" aria-label="Yellow accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#2ecc71" style="--swatch:#2ecc71" aria-label="Green accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#3498db" style="--swatch:#3498db" aria-label="Blue accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#9b59b6" style="--swatch:#9b59b6" aria-label="Violet accent"></button>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode" title="Switch theme">
+                    <span class="theme-icon" aria-hidden="true">🌙</span>
+                    <span class="theme-label">Dark</span>
+                </button>
+                <span id="user-btn" class="btn-user">
+                    <img src="assets/user-logo.svg" alt="user-logo" class="user-logo">
+                </span>
+            </div>
+        </header>
+
+        <main>
+            <section id="dashboard" class="dashboard content-section active">
+                <h2 class="page-title">Dashboard</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Items</h3>
+                        <p id="stat-items-count">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Customers</h3>
+                        <p id="stat-customers-count">0</p>
+                    </div>
+                    <div class="stat-card revenue-card">
+                        <h3>Total Revenue</h3>
+                        <p>Rs <span id="stat-revenue">0.00</span></p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h3 class="table-header">Latest Placed Orders</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="latest-orders-table">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="orders" class="orders content-section active">
+                <h2 class="page-title">Place Order</h2>
+
+                <div class="order-main-container">
+                    <div class="left-column">
+                        <div class="form-card invoice-card">
+                            <div class="form-card-header">
+                                <h3 class="card-header-text">Invoice Details</h3>
+                            </div>
+                            <div class="form-card-field">
+                                <div class="input-box">
+                                    <label>Order ID:</label>
+                                    <input type="text" id="order-id-display" readonly>
+                                </div>
+                                <div class="input-box">
+                                    <label>Date:</label>
+                                    <input type="date" id="order-date">
+                                </div>
+                                <div class="comb-box">
+                                    <label>Customer :</label>
+                                    <select id="order-customer-select">
+                                        <option value="">Select Customer</option>
+                                    </select>
+                                </div>
+                                <div class="input-box">
+                                    <label>Customer ID:</label>
+                                    <input type="text" id="order-cust-id" readonly>
+                                </div>
+                                <div class="input-box">
+                                    <label>Name:</label>
+                                    <input type="text" id="order-cust-name" readonly>
+                                </div>
+                                <div class="input-box">
+                                    <label>Phone:</label>
+                                    <input type="text" id="order-cust-phone" readonly>
+                                </div>
+                                <div class="input-box full-width">
+                                    <label>Address:</label>
+                                    <input type="text" id="order-cust-address" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-container cart-item-table-container">
+                            <h3 class="table-header">Cart Items</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Item Name</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-table-body">
+                                    <tr>
+                                        <td>ITM-001</td>
+                                        <td>Item One</td>
+                                        <td>5000</td>
+                                        <td>2</td>
+                                        <td>10000</td>
+                                        <td><button class="buttons order-buttons btn-remove">Remove</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="right-column">
+                        <div class="form-card item-select-card">
+                            <div class="form-card-header">
+                                <h3 class="card-header-text">Item Select</h3>
+                            </div>
+                            <div class="form-card-field">
+                                <div class="comb-box">
+                                    <label>Item:</label>
+                                    <select id="order-item-select">
+                                        <option value="">Item</option>
+                                    </select>
+                                </div>
+                                <div class="input-box">
+                                    <label>Item CODE:</label>
+                                    <input type="text" id="order-item-code" readonly>
+                                </div>
+                                <div class="input-box">
+                                    <label>Item Name:</label>
+                                    <input type="text" id="order-item-name" readonly>
+                                </div>
+                                <div class="input-box">
+                                    <label>Price:</label>
+                                    <input type="text" id="order-item-price" readonly>
+                                </div>
+                                <div class="input-box qty-order">
+                                    <label>Order Quantity:</label>
+                                    <input type="number" id="order-item-qty" min="1" value="1">
+                                </div>
+                                <div class="input-box qty-on-hand">
+                                    <label>QTYonH:</label>
+                                    <input type="text" id="order-item-qty-on-hand" readonly>
+                                </div>
+                                <button class="buttons order-buttons add-to-cart-btn" id="add-to-cart">Add To
+                                    Cart</button>
+
+                            </div>
+                        </div>
+
+                        <div class="summary-card">
+                            <h2 class="total-text">Total: Rs <span id="order-total-display">0.00</span></h2>
+                            <h2 class="subtotal-text">Subtotal: Rs <span id="order-subtotal-display">0.00</span></h2>
+
+                            <div class="order-summary-fields">
+                                <div class="input-box">
+                                    <label>Cash:</label>
+                                    <input type="number" id="cash-input">
+                                </div>
+                                <div class="input-box">
+                                    <label>Discount:</label>
+                                    <input type="number" id="discount-input" value="0">
+                                </div>
+                                <div class="input-box full-width">
+                                    <label>Balance:</label>
+                                    <input type="text" id="balance-display" readonly>
+                                </div>
+                            </div>
+                            <div class="summary-btns">
+                                <button class="buttons order-buttons btn-reset" id="order-reset">Reset</button>
+                                <button class="buttons order-buttons btn-purchase" id="purchase-order">Purchase
+                                    Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Items Section -->
+            <section id="items" class="items content-section active">
+                <h2 class="page-title">Manage Items</h2>
+
+                <div class="item-main-container">
+                    <div class="manage-header">
+                        <div class="manage-box item-manage-box">
+                            <div class="form-inline item-form-inline">
+                                <input type="text" id="item-code-input" placeholder="Item Code" readonly>
+                                <input type="text" id="item-name-input" placeholder="Item Name" class="wide-input">
+                                <input type="number" id="item-price-input" placeholder="Price">
+                                <input type="number" id="item-qty-input" placeholder="Stock Qty">
+                            </div>
+                            <div class="manage-buttons item-manage-buttons">
+                                <button class="buttons item-buttons btn-save" id="save-item" onclick="saveItem()">Save</button>
+                                <button class="buttons item-buttons btn-update" id="update-item" onclick="updateItem()">Update</button>
+                                <button class="buttons item-buttons btn-reset" id="reset-item" onclick="resetItemPage()">Reset</button>
+                            </div>
+                        </div>
+
+                        <div class="search-box">
+                            <input type="text" placeholder="Search ..." id="item-search">
+                        </div>
+                    </div>
+
+                    <div class="table-container item-table-container">
+                        <h3 class="table-header">Items</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="items-table-body">
+                                <tr>
+                                    <!--  -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customers" class="customers content-section active">
+                <h2 class="page-title">Manage Customers</h2>
+
+                <div class="customer-main-container">
+                    <div class="manage-header">
+                        <div class="manage-box customer-manage-box">
+                            <div class="form-inline customer-form-inline">
+                                <input type="text" id="cust-id-input" placeholder="Customer ID" readonly>
+                                <input type="text" id="cust-name-input" placeholder="Customer Name">
+                                <input type="text" id="cust-phone-input" placeholder="Phone">
+                                <input type="text" id="cust-address-input" placeholder="Address">
+                            </div>
+                            <div class="manage-buttons customer-manage-buttons">
+                                <button class="buttons customer-buttons btn-save" id="save-customer" onclick="saveCustomer()">Save</button>
+                                <button class="buttons customer-buttons btn-update" id="update-customer" onclick="updateCustomer()">Update</button>
+                                <button class="buttons customer-buttons btn-reset" id="reset-customer" onclick="resetCustomerpage()">Reset</button>
+                            </div>
+                        </div>
+
+                        <div class="search-box">
+                            <input type="text" placeholder="Search ..." id="customer-search">
+                        </div>
+                    </div>
+
+                    <div class="table-container customer-table-container">
+                        <h3 class="table-header">Customers</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-table-body">
+                                <!--  -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section id="history" class="history content-section active">
+                <h2 class="page-title">Order History</h2>
+
+                <div class="history-main-container">
+                    <div class="manage-header align-center">
+                        <button class="buttons history-buttons btn-reset" id="history-reset">Reset</button>
+
+                        <div class="search-box history-search-box">
+                            <input type="text" placeholder="Search ..." id="history-search">
+                        </div>
+                    </div>
+
+                    <div class="table-container history-table-container">
+                        <h3 class="table-header">Order History</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <tr>
+                                    <td>ODR-001</td>
+                                    <td>John</td>
+                                    <td>2026-02-20</td>
+                                    <td>5000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+    <footer class="system-footer">
+        <div class="footer-left">
+            <span class="status-indicator online"></span>
+            <p>System Online</p>
+        </div>
+
+        <div class="footer-center">
+            <p>© 2026 <strong>Hasitha Wijesinghe</strong> | All Rights Reserved</p>
+        </div>
+
+        <div class="footer-right">
+            <p>v1.0.4 | Terminal: <strong>01</strong></p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
