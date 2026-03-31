@@ -215,6 +215,12 @@ navLinks.forEach(link => {
 		if (target === 'items') {
 			getAllItems();
 		}
+
+		if (target === 'orders') {
+			loadOrderPage();
+			loadCartTable();
+			console.log('Navigated to orders page');
+		}
 	});
 });
 
@@ -643,42 +649,65 @@ document.getElementById("item-search").addEventListener("input", function () {
 /* ----------------------------------------------------------------------------------------------
 								   Orders Management Logic
    ----------------------------------------------------------------------------------------------*/
-
-// Generate new order ID and set to order form
-const newOrderId = generateNewOrderId();
-document.getElementById("order-id-display").value = newOrderId;
-
-// Set today's date to order form
-const orderDateInput = document.getElementById("order-date");
-const today = new Date().toISOString().split("T")[0];
-if (orderDateInput) {
-	orderDateInput.value = today;
-}
-
-// Populate customer dropdown in order form
 const customerSelector = document.getElementById("order-customer-select");
-
-const optionDefault = document.createElement("option");
-optionDefault.value = "";
-optionDefault.textContent = "Select None";
-customerSelector.appendChild(optionDefault);
-
-customersList.forEach(customer => {
-	const option = document.createElement("option");
-	option.value = customer.id;
-	option.textContent = `${customer.name} (${customer.id})`;
-	customerSelector.appendChild(option);
-});
-
-// Populate item dropdown in order form
 const itemSelector = document.getElementById("order-item-select");
 
-itemsList.forEach(item => {
-	const option = document.createElement("option");
-	option.value = item.id;
-	option.textContent = `${item.name} (${item.id})`;
-	itemSelector.appendChild(option);
-});	
+function setupDateAndOrderId() {
+
+	// Generate new order ID and set to order form
+	const newOrderId = generateNewOrderId();
+	document.getElementById("order-id-display").value = newOrderId;
+
+	// Set today's date to order form
+	const orderDateInput = document.getElementById("order-date");
+	const today = new Date().toISOString().split("T")[0];
+	if (orderDateInput) {
+		orderDateInput.value = today;
+	}
+}
+
+
+function loadOrderPage() {
+
+	setupDateAndOrderId();
+
+
+	// Populate customer dropdown in order form
+	customerSelector.innerHTML = "";
+
+
+	const existingCustomerOption = document.createElement("option");
+	existingCustomerOption.value = "";
+	existingCustomerOption.textContent = "Select Customer";
+	customerSelector.appendChild(existingCustomerOption);
+
+	const optionDefault = document.createElement("option");
+	optionDefault.value = "";
+	optionDefault.textContent = "Select None";
+	customerSelector.appendChild(optionDefault);
+
+	customersList.forEach(customer => {
+		const option = document.createElement("option");
+		option.value = customer.id;
+		option.textContent = `${customer.name} (${customer.id})`;
+		customerSelector.appendChild(option);
+	});
+
+	// Populate item dropdown in order form
+	itemSelector.innerHTML = "";
+
+	const itemOptionDefault = document.createElement("option");
+	itemOptionDefault.value = "";
+	itemOptionDefault.textContent = "Select Item";
+	itemSelector.appendChild(itemOptionDefault);
+
+	itemsList.forEach(item => {
+		const option = document.createElement("option");
+		option.value = item.id;
+		option.textContent = `${item.name} (${item.id})`;
+		itemSelector.appendChild(option);
+	});
+}
 
 
 // load cart items
@@ -735,7 +764,7 @@ function selectCustomerForOrder() {
 
 itemSelector.addEventListener("change", selectItemForOrder);
 
-function selectItemForOrder() {	
+function selectItemForOrder() {
 
 	const itemIdInput = document.getElementById("order-item-code");
 	const itemNameInput = document.getElementById("order-item-name");
@@ -743,11 +772,16 @@ function selectItemForOrder() {
 	const itemQtyInput = document.getElementById("order-item-qty-on-hand");
 
 	const selectedItemId = document.getElementById("order-item-select").value;
-	if (!selectedItemId) {
+	if (selectedItemId === "") {
+		itemIdInput.value = "";
+		itemNameInput.value = "";
+		itemPriceInput.value = "";
+		itemQtyInput.value = "";
 		return;
+
 	}
 	const item = itemsList.find(i => i.id === selectedItemId);
-	if(item) {
+	if (item) {
 		itemIdInput.value = item.id;
 		itemNameInput.value = item.name;
 		itemPriceInput.value = item.price;
@@ -757,4 +791,67 @@ function selectItemForOrder() {
 	}
 }
 
+// reset order form
+function resetOrderForm() {
+	document.getElementById("order-id-display").value = "";
+	document.getElementById("order-date").value = "";
+	document.getElementById("order-cust-id").value = "";
+	document.getElementById("order-cust-name").value = "";
+	document.getElementById("order-cust-phone").value = "";
+	document.getElementById("order-cust-address").value = "";
+	document.getElementById("order-item-code").value = "";
+	document.getElementById("order-item-name").value = "";
+	document.getElementById("order-item-price").value = "";
+	document.getElementById("order-item-qty-on-hand").value = "";
+	document.getElementById("order-customer-select").value = "";
+	document.getElementById("order-item-select").value = "";
+	document.getElementById("order-item-qty").value = 1;
+	itemCartList.length = 0;
+	loadCartTable();
+	setupDateAndOrderId();
+}
+
+function addItemToCart() {
+	const itemId = document.getElementById("order-item-code").value.trim();
+	const qty = Number(document.getElementById("order-item-qty").value);
+	const onHandQty = document.getElementById("order-item-qty-on-hand");
+
+	const isValid = isOrderFormValid();
+	if (!isValid.isValid) {
+		alert(isValid.message);
+		return;
+	}
+
+	const existingCartItem = itemCartList.find(i => i.itemId === itemId);
+
+	onHandQty.value -= qty;
+
+	if (existingCartItem) {
+		existingCartItem.qty += qty;
+
+
+	} else {
+		itemCartList.push({ itemId, qty });
+	}
+	loadCartTable();
+}
+
+function isOrderFormValid() {
+	const customerId = document.getElementById("order-cust-id").value.trim();
+	const itemId = document.getElementById("order-item-code").value.trim();
+	const qty = Number(document.getElementById("order-item-qty").value);
+	const onHandQty = document.getElementById("order-item-qty-on-hand");
+
+	if (customerId === "" || itemId === "" || Number.isNaN(qty) || qty <= 0) {
+		return { isValid: false, message: "Please select a customer, an item, and enter a valid quantity." };
+	}
+	const item = itemsList.find(i => i.id === itemId);
+	if (!item) {
+		return { isValid: false, message: "Selected item not found." };
+	}
+	if (qty > onHandQty.value) {
+		return { isValid: false, message: "Requested quantity exceeds available stock." };
+	}
+	return { isValid: true };
+}
 
