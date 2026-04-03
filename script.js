@@ -32,11 +32,11 @@ ordersDetailsList.push(
 
 const ordersList = [];
 ordersList.push(
-	{ id: "ORD-001", customerId: "CUS-001", date: "2024-06-01" },
-	{ id: "ORD-002", customerId: "CUS-002", date: "2024-06-02" },
-	{ id: "ORD-003", customerId: "CUS-003", date: "2024-06-03" },
-	{ id: "ORD-004", customerId: "CUS-004", date: "2024-06-04" },
-	{ id: "ORD-005", customerId: "CUS-005", date: "2024-06-05" }
+	{ id: "ORD-001", customerId: "CUS-001", date: "2024-06-01", total: 10000, discount: 500, paid: 9500 },
+	{ id: "ORD-002", customerId: "CUS-002", date: "2024-06-02", total: 5000, discount: 250, paid: 4750 },
+	{ id: "ORD-003", customerId: "CUS-003", date: "2024-06-03", total: 15000, discount: 750, paid: 14250 },
+	{ id: "ORD-004", customerId: "CUS-004", date: "2024-06-04", total: 12500, discount: 625, paid: 11875 },
+	{ id: "ORD-005", customerId: "CUS-005", date: "2024-06-05", total: 8500, discount: 425, paid: 8075 }
 );
 
 const itemCartList = [];
@@ -834,16 +834,16 @@ function addItemToCart() {
 		itemCartList.push({ itemId, qty });
 	}
 	loadCartTable();
+	calculateOrderTotals();
 }
 
 function isOrderFormValid() {
-	const customerId = document.getElementById("order-cust-id").value.trim();
 	const itemId = document.getElementById("order-item-code").value.trim();
 	const qty = Number(document.getElementById("order-item-qty").value);
 	const onHandQty = document.getElementById("order-item-qty-on-hand");
 
-	if (customerId === "" || itemId === "" || Number.isNaN(qty) || qty <= 0) {
-		return { isValid: false, message: "Please select a customer, an item, and enter a valid quantity." };
+	if (itemId === "" || Number.isNaN(qty) || qty <= 0) {
+		return { isValid: false, message: "Please select an item and enter a valid quantity." };
 	}
 	const item = itemsList.find(i => i.id === itemId);
 	if (!item) {
@@ -855,3 +855,164 @@ function isOrderFormValid() {
 	return { isValid: true };
 }
 
+
+function calculateOrderTotals() {
+	const totalLabel = document.getElementById("order-total-display");
+	const subtotalLabel = document.getElementById("order-subtotal-display");
+	const discountPreField = document.getElementById("discount-input");
+	const paidField = document.getElementById("cash-input");
+	const balanceField = document.getElementById("balance-display");
+
+	let discount = 0;
+	let paid = 0;
+	let balance = 0;
+	let totalDisplay = "0";
+	let subtotalDisplay = "0";
+
+
+	const total = itemCartList.reduce((sum, cartItem) => {
+		const item = itemsList.find(i => i.id === cartItem.itemId);
+		return sum + (item ? item.price * cartItem.qty : 0);
+	}, 0);
+
+	if(isdiscountFieldValid().isValid) {
+		discount = total * (Number(discountPreField.value) / 100);
+		hideDiscountFieldError();
+	}else {
+		showDiscountFieldError();
+	}
+
+
+	if (paidField.value.trim() !== "" && !Number.isNaN(Number(paidField.value)) && Number(paidField.value) >= 0) {
+		paid = Number(paidField.value);
+	}
+
+
+	totalDisplay = `${total.toFixed(2)}`;
+	subtotalDisplay = `${(total - discount).toFixed(2)}`;
+	balance = `${(Number(subtotalDisplay) - Number(paid)).toFixed(2)}`;
+	totalLabel.textContent = totalDisplay;
+	subtotalLabel.textContent = subtotalDisplay;
+	balanceField.value = balance;
+}
+
+const cashInputField = document.getElementById("cash-input");
+if (cashInputField) {
+	cashInputField.addEventListener("input", calculateOrderTotals);
+}
+
+const discountInputField = document.getElementById("discount-input");
+if (discountInputField) {
+	discountInputField.addEventListener("input", calculateOrderTotals);
+}
+
+
+
+function placeOrder() {
+
+	const newOrderId = generateNewOrderId();
+	const customerId = document.getElementById("order-cust-id").value.trim();
+	const orderDate = document.getElementById("order-date").value;
+
+	const totalLabel = document.getElementById("order-total-display");
+	const subtotalLabel = document.getElementById("order-subtotal-display");
+	const discountPreField = document.getElementById("discount-input");
+	const paidField = document.getElementById("cash-input");
+	const balanceField = document.getElementById("balance-display");
+
+
+	if (itemCartList.length === 0) {
+		alert("Please add at least one item to the cart before placing the order.");
+		return;
+	}
+
+
+	if (!isOrderFormValid().isValid) {
+		alert(isOrderFormValid().message);
+		return;
+	}
+
+
+
+	const newOrder = {
+		id: newOrderId,
+		customerId,
+		date: orderDate,
+		total,
+		discount: 0,
+		paid: total
+	};
+}
+
+// validate place order form
+function isPlaceOrderFormValid() {
+	const customerId = document.getElementById("order-cust-id").value.trim();
+	const orderDate = document.getElementById("order-date").value;
+	const discountPreField = document.getElementById("discount-input");
+	const paidField = document.getElementById("cash-input");
+	const subtotalElement = document.getElementById("order-subtotal-display");
+	const subtotalAmount = Number(subtotalElement ? subtotalElement.textContent : 0);
+
+	if (!discountPreField || !paidField || !subtotalElement) {
+		return { isValid: false, message: "Order summary fields are missing." };
+	}
+
+	if (!(customerId === "" || customerId === "----" || customerId === null)) {
+		if (!customersList.some(c => c.id === customerId)) {
+			return { isValid: false, message: "Selected customer not found." };
+		}
+	}
+	if (orderDate === "" || orderDate === null) {
+		return { isValid: false, message: "Please select an order date." };
+	}
+	if (discountPreField.value.trim() === "" || discountPreField.value === null) {
+		discountPreField.value = "0";
+	} else if (Number.isNaN(Number(discountPreField.value)) || Number(discountPreField.value) < 0 || Number(discountPreField.value) > 100) {
+		return { isValid: false, message: "Please enter a valid discount amount (0%-100%)." };
+	}
+	if (paidField.value.trim() === "" || paidField.value === null) {
+		return { isValid: false, message: "Please enter the amount paid." };
+	} else if (Number.isNaN(Number(paidField.value)) || Number(paidField.value) < 0 || Number(paidField.value) > subtotalAmount) {
+		return { isValid: false, message: "Please enter a valid amount paid." };
+	}
+	return { isValid: true };
+}
+
+function isdiscountFieldValid() {
+	const discountPreField = document.getElementById("discount-input");
+	if (discountPreField.value.trim() === "" || discountPreField.value === null) {
+		return { isValid: true};
+	} else if (Number.isNaN(Number(discountPreField.value)) || Number(discountPreField.value) < 0 || Number(discountPreField.value) > 100) {
+		return { isValid: false};
+	} else {
+		return { isValid: true};
+	}
+}
+
+function showDiscountFieldError() {
+	const discountPreField = document.getElementById("discount-input");
+	const discountErrorLabel = document.getElementById("discount-error-label");
+	if (discountErrorLabel) {
+		discountErrorLabel.textContent = "Please enter a valid discount amount (0%-100%).";
+		discountErrorLabel.style.color = "red";
+		discountErrorLabel.classList.remove("hidden");
+	}
+	if (discountPreField) {
+		discountPreField.classList.add("input-error");
+		discountPreField.style.borderColor = "red";
+	}
+}
+
+function hideDiscountFieldError() {
+	const discountPreField = document.getElementById("discount-input");
+	const discountErrorLabel = document.getElementById("discount-error-label");
+	if (discountErrorLabel) {
+		discountErrorLabel.textContent = "";
+		discountErrorLabel.style.color = "";
+		discountErrorLabel.classList.add("hidden");
+	}
+	if (discountPreField) {
+		discountPreField.classList.remove("input-error");
+		discountPreField.style.borderColor = "";
+	}
+}

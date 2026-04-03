@@ -225,13 +225,14 @@
                             <h2 class="subtotal-text">Subtotal: Rs <span id="order-subtotal-display">0.00</span></h2>
 
                             <div class="order-summary-fields">
-                                <div class="input-box">
+                                <div class="input-box" id="cash-box">
                                     <label>Cash:</label>
                                     <input type="number" id="cash-input">
                                 </div>
-                                <div class="input-box">
+                                <div class="input-box " id="discount-box">
                                     <label>Discount:</label>
                                     <input type="number" id="discount-input" value="0">
+                                    <label for="discount-input" class="error-label hidden" id="discount-error-label"></label>
                                 </div>
                                 <div class="input-box full-width">
                                     <label>Balance:</label>
