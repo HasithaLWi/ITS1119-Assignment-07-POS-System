@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POS System</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -223,6 +223,7 @@
                         <div class="summary-card">
                             <h2 class="total-text">Total: Rs <span id="order-total-display">0.00</span></h2>
                             <h2 class="subtotal-text">Subtotal: Rs <span id="order-subtotal-display">0.00</span></h2>
+                            <h2 class="paid-text hidden" id="order-paid-amount">Amount Paid: Rs <span id="order-paid-display">0.00</span></h2>
 
                             <div class="order-summary-fields">
                                 <div class="input-box" id="cash-box">
@@ -244,6 +245,10 @@
                                 <button class="buttons order-buttons btn-reset" id="order-reset" onclick="resetOrderForm()">Reset</button>
                                 <button class="buttons order-buttons btn-purchase" id="purchase-order" onclick="placeOrder()">Purchase
                                     Order</button>
+                            </div>
+                            <div class="order-update-btns hidden" id="order-update-btns">
+                                <button class="buttons order-buttons btn-delete" id="order-cancel" onclick="resetOrderForm()">Cancel</button>
+                                <button class="buttons order-buttons btn-update" id="update-order" onclick="updateOrder()">Update Order</button>
                             </div>
                         </div>
                     </div>
@@ -399,7 +404,26 @@
             <p>v1.0.4 | Terminal: <strong>01</strong></p>
         </div>
     </footer>
+    
     <script src="script.js"></script>
+
+    <script src="dto/customerDto.js"></script>
+    <script src="dto/itemDto.js"></script>
+    <script src="dto/orderDto.js"></script>
+    <script src="dto/orderDetailsDto.js"></script>
+
+    <script src="db/data.js"></script>
+
+    <script src="model/customerModel.js"></script>
+    <script src="model/itemModel.js"></script>
+    <script src="model/orderModel.js"></script>
+
+    <script src="controller/orderController.js"></script>
+    <script src="controller/itemController.js"></script>
+    <script src="controller/customerController.js"></script>
+    <script src="controller/orderHistoryController.js"></script>
+
+
 </body>
 
 </html>
