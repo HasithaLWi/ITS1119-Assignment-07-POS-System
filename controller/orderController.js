@@ -1,6 +1,6 @@
 import { ordersList, ordersDetailsList, customerDB } from "../db/data.js";
 import { updateDashboardStats } from "../script.js";
-import { loadItems, loadItemTable } from "./itemController.js";
+import { loadItems, loadItemTable, resetItemPage } from "./itemController.js";
 import { resetOrderHistory, hideOrderUpdateButton } from "./orderHistoryController.js";
 import { OrderModel } from "../model/orderModel.js";
 import { customerModel } from "../model/customerModel.js";
@@ -247,6 +247,32 @@ export function addItemToCart() {
 	calculateOrderTotals();
 }
 
+
+document.addEventListener("click", (event) => {
+	if (event.target.classList.contains("cart-item-delete-btn")) {
+		const index = event.target.getAttribute("data-index");
+		removeItemFromCart(index);
+	}
+});
+
+
+function removeItemFromCart(index) {
+	const cartItem = itemCartList[index];
+	const onHandQtyInput = document.getElementById("order-item-qty-on-hand");
+	if (cartItem && onHandQtyInput) {
+		if(cartItem.qty > 1) {
+			cartItem.qty -= 1;
+			cartItem.total = Number(cartItem.price) * Number(cartItem.qty);
+		} else {
+			itemCartList.splice(index, 1);
+		}
+		onHandQtyInput.value = Number(onHandQtyInput.value) + 1;
+		loadCartTable();
+		calculateOrderTotals();
+	}
+}
+
+
 function isOrderFormValid() {
 	const itemId = document.getElementById("order-item-code").value.trim();
 	const qty = Number(document.getElementById("order-item-qty").value);
@@ -405,64 +431,30 @@ export function updateOrder() {
 		alert(validation.message);
 		return;
 	}
+	
 
-	const previousDetails = Array.isArray(existingOrder.orderDetails) ? existingOrder.orderDetails : [];
-
-	// Restore previous stock before checking and applying the updated cart quantities.
-	previousDetails.forEach((detail) => {
-		const item = itemDataList.items.find(i => i.id === detail.itemId);
-		if (item) {
-			item.qty += Number(detail.qty);
-		}
-	});
-
-	const exceedsStock = itemCartList.some((cartItem) => {
-		const item = itemDataList.items.find(i => i.id === cartItem.itemId);
-		return !item || Number(cartItem.qty) > Number(item.qty);
-	});
-
-	if (exceedsStock) {
-		previousDetails.forEach((detail) => {
-			const item = itemDataList.items.find(i => i.id === detail.itemId);
-			if (item) {
-				item.qty -= Number(detail.qty);
-			}
-		});
-		alert("Updated item quantity exceeds available stock.");
-		return;
-	}
-
-	const updatedDetails = itemCartList.map((cartItem) => ({
+	const updatedDetails = itemCartList.map((cartItem) => new OrderDetails(
 		orderId,
-		itemId: cartItem.itemId,
-		qty: Number(cartItem.qty)
-	}));
+		cartItem.itemId,
+		cartItem.qty
+	));
 
-	updatedDetails.forEach((detail) => {
-		const item = itemDataList.items.find(i => i.id === detail.itemId);
-		if (item) {
-			item.qty -= detail.qty;
-		}
-	});
+	const updatedOrder = new Order(
+		orderId, 
+		customerIdFieldValue === "" ? null : customerIdFieldValue,
+		orderDate, 
+		totalDisplay,
+		discountPreField.value.trim() === "" ? "0" : discountPreField.value,
+		Number(paidField.value) + Number(partialPaidAmount),
+		updatedDetails
+	);
 
-	for (let i = ordersDetailsList.length - 1; i >= 0; i -= 1) {
-		if (ordersDetailsList[i].orderId === orderId) {
-			ordersDetailsList.splice(i, 1);
-		}
-	}
-	ordersDetailsList.push(...updatedDetails);
+	orderModelInstance.updateOrder(updatedOrder);
 
-	existingOrder.customerId = (customerIdFieldValue === "" || customerIdFieldValue === "----") ? null : customerIdFieldValue;
-	existingOrder.date = orderDate;
-	existingOrder.total = totalDisplay;
-	existingOrder.discount = discountPreField.value.trim() === "" ? "0" : discountPreField.value.trim();
-	existingOrder.paid = Number(paidField.value) + Number(partialPaidAmount);
-	existingOrder.orderDetails = updatedDetails;
-
-	alert("Order updated successfully!");
 	updateDashboardStats();
 	resetOrderForm();
 	resetOrderHistory();
+	resetItemPage();
 }
 
 // validate place order form
