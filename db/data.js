@@ -1,5 +1,6 @@
 import { Customer } from "../dto/customer.js";
 import { Item } from "../dto/item.js";
+import { User } from "../dto/user.js";
 
 
 
@@ -19,6 +20,12 @@ export const itemDB = [
 	new Item("ITM-005", "Item five", 300, 15)
 ];
 
+export const usersDB = [
+	new User("USR-001", "admin", "Admin User", "admin@example.com", "admin123"),
+	new User("USR-002", "user1", "User One", "user1@example.com", "password1"),
+	new User("USR-003", "user2", "User Two", "user2@example.com", "password2")
+];
+
 export const ordersDetailsList = [
 	{ orderId: "ORD-001", itemId: "ITM-001", qty: 2 },
 	{ orderId: "ORD-002", itemId: "ITM-002", qty: 1 },
@@ -36,4 +43,6 @@ export const ordersList = [
 	{ id: "ORD-004", customerId: "CUS-004", date: "2024-06-04", total: 12500, discount: 8, paid: 1500, orderDetails: [{ orderId: "ORD-004", itemId: "ITM-005", qty: 2 }, { orderId: "ORD-004", itemId: "ITM-001", qty: 1 }] },
 	{ id: "ORD-005", customerId: "CUS-005", date: "2024-06-05", total: 8500, discount: 10, paid: 7650, orderDetails: [{ orderId: "ORD-005", itemId: "ITM-003", qty: 5 }] }
 ];
+
+
 

@@ -1,7 +1,7 @@
 
 import { Item } from "../dto/item.js";
 import { ItemModel } from "../model/itemModel.js";
-import { updateDashboardStats } from "../script.js";
+import { resetDashboard } from "./dashboardController.js";
 import { resetOrderForm } from "./orderController.js";
 
 const itemModelInstance = new ItemModel();
@@ -93,7 +93,7 @@ export function saveItem() {
 
 	itemModelInstance.saveItem(new Item(newItemId, name, price, qty));
 
-	updateDashboardStats();
+	resetDashboard();
 	resetItemPage();
 }
 
@@ -128,7 +128,7 @@ export function updateItem() {
 		Number(itemQtyInput.value)
 	));
 
-	updateDashboardStats();
+	resetDashboard();
 	resetItemPage();
 }
 
@@ -143,6 +143,7 @@ export function resetItemPage() {
 	loadItems();
 	loadItemTable();
 	resetOrderForm();
+	resetDashboard();
 }
 
 
@@ -158,7 +159,7 @@ document.addEventListener("click", (event) => {
 
 			itemModelInstance.deleteItem(itemsDataList[index].id);
 
-			updateDashboardStats();
+			resetDashboard();
 			loadItems();
 			loadItemTable();
 			resetOrderForm();

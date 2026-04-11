@@ -1,11 +1,12 @@
 const THEME_KEY = "pos-theme";
 const ACCENT_KEY = "pos-accent";
 
-import { customerDB, itemDB, ordersList } from "./db/data.js";
+
 import { saveCustomer, updateCustomer, resetCustomerpage } from "./controller/customerController.js";
 import { saveItem, updateItem, resetItemPage } from "./controller/itemController.js";
 import { addItemToCart, placeOrder, updateOrder, resetOrderForm } from "./controller/orderController.js";
 import { resetOrderHistory } from "./controller/orderHistoryController.js";
+import { resetDashboard } from "./controller/dashboardController.js";
 
 window.saveCustomer = saveCustomer; 
 window.updateCustomer = updateCustomer;
@@ -119,47 +120,47 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	initAccentPicker();
-	updateDashboardStats();
+	resetDashboard();
 });
 
 
-// --- Authentication Logic ---
+// // --- Authentication Logic ---
 
-let username = "admin";
-let password = "admin123";
+// let username = "admin";
+// let password = "admin123";
 
-const loginBtn = document.getElementById("login-btn");
-loginBtn.addEventListener("click", (event) => {
-	event.preventDefault();
-	const username = document.getElementById("username").value.trim();
-	const password = document.getElementById("password").value.trim();
+// const loginBtn = document.getElementById("login-btn");
+// loginBtn.addEventListener("click", (event) => {
+// 	event.preventDefault();
+// 	const username = document.getElementById("username").value.trim();
+// 	const password = document.getElementById("password").value.trim();
 
-	if (username === "") {
-		alert("Please enter a username.");
-		return;
-	} else if (username !== "admin") {
-		alert("Invalid username. Please try again.");
-		return;
-	}
+// 	if (username === "") {
+// 		alert("Please enter a username.");
+// 		return;
+// 	} else if (username !== "admin") {
+// 		alert("Invalid username. Please try again.");
+// 		return;
+// 	}
 
-	if (password === "") {
-		alert("Please enter a password.");
-		return;
-	} else if (password !== "admin123") {
-		alert("Invalid password. Please try again.");
-		return;
-	}
+// 	if (password === "") {
+// 		alert("Please enter a password.");
+// 		return;
+// 	} else if (password !== "admin123") {
+// 		alert("Invalid password. Please try again.");
+// 		return;
+// 	}
 
-	document.getElementById("welcome-message").textContent = `Welcome, ${username}!`;
-	document.getElementById("login").classList.add("hidden");
-	document.getElementById("main-app").classList.remove("hidden");
+// 	document.getElementById("welcome-message").textContent = `Welcome, ${username}!`;
+// 	document.getElementById("login").classList.add("hidden");
+// 	document.getElementById("main-app").classList.remove("hidden");
 
-	resetCustomerpage();
-	resetItemPage();
-	resetOrderForm();
-	resetOrderHistory();
+// 	resetCustomerpage();
+// 	resetItemPage();
+// 	resetOrderForm();
+// 	resetOrderHistory();
 
-});
+// });
 
 // --- Navigation Logic ---
 export const navLinks = document.querySelectorAll('.nav-link');
@@ -186,30 +187,4 @@ navLinks.forEach(link => {
 
 
 
-export function updateDashboardStats() {
-	const statCustomers = document.getElementById('stat-customers-count');
-	const statItems = document.getElementById('stat-items-count');
-	const statRevenue = document.getElementById('stat-revenue');
 
-	if (statCustomers) {
-		statCustomers.textContent = customerDB.length;
-	}
-	if (statItems) {
-		statItems.textContent = itemDB.length;
-	}
-	if (statRevenue) {
-		const totalRevenue = ordersList.reduce((sum, order) => {
-			const total = Number(order.total);
-			const discount = Number(order.discount);
-
-			if (Number.isFinite(total) && Number.isFinite(discount)) {
-				return sum + (total - discount);
-			}
-
-			const paid = Number(order.paid);
-			return Number.isFinite(paid) ? sum + paid : sum;
-		}, 0);
-
-		statRevenue.textContent = totalRevenue.toFixed(2);
-	}
-}

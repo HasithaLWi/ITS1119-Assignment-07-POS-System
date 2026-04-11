@@ -1,5 +1,5 @@
-import { ordersList, ordersDetailsList, customerDB } from "../db/data.js";
-import { updateDashboardStats } from "../script.js";
+import { ordersList, customerDB } from "../db/data.js";
+import { resetDashboard } from "./dashboardController.js";
 import { loadItems, loadItemTable, resetItemPage } from "./itemController.js";
 import { resetOrderHistory, hideOrderUpdateButton } from "./orderHistoryController.js";
 import { OrderModel } from "../model/orderModel.js";
@@ -215,6 +215,7 @@ export function resetOrderForm() {
 	hideDiscountFieldError();
 	hidePaidFieldError();
 	hideOrderUpdateButton();
+	resetDashboard();
 }
 
 export function addItemToCart() {
@@ -393,7 +394,7 @@ export function placeOrder() {
 	alert("Order placed successfully!");
 	loadItems();
 	loadItemTable();
-	updateDashboardStats();
+	resetDashboard();
 	resetOrderForm();
 	resetOrderHistory();
 }
@@ -451,7 +452,7 @@ export function updateOrder() {
 
 	orderModelInstance.updateOrder(updatedOrder);
 
-	updateDashboardStats();
+	resetDashboard();
 	resetOrderForm();
 	resetOrderHistory();
 	resetItemPage();

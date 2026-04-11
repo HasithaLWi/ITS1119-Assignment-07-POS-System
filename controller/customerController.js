@@ -1,6 +1,6 @@
 import { Customer } from "../dto/customer.js";
 import { customerModel } from "../model/customerModel.js";
-import { updateDashboardStats } from "../script.js";
+import { resetDashboard } from "./dashboardController.js";
 import { resetOrderForm } from "./orderController.js";
 
 const customerModelInstance = new customerModel();
@@ -14,27 +14,27 @@ function loadCustomers() {
 
 // Fetch Customers from Local Storage
 function loadCustomerTable(customerData = customerDataList) {
-	const customersTableBody = document.querySelector("#customers-table-body");
+	const customersTableBody = $(`#customers-table-body`);
 	if (!customersTableBody) {
 		return;
 	}
 	if (customerModelInstance.getAllCustomers().isEmpty) {
-		customersTableBody.innerHTML = "<tr><td colspan='5'>No customers found.</td></tr>";
+		customersTableBody.html(`<tr><td colspan='5'>No customers found.</td></tr>`);
 		return;
 	} else {
-		customersTableBody.innerHTML = "";
+		customersTableBody.html(``);
 		customerData.forEach((customer, index) => {
-			const row = document.createElement("tr");
+			const $row = $(`<tr></tr>`);
 			const customerId = customer.id || (index + 1);
-			row.innerHTML = `
+			$row.html(`
 				<td>${customerId}</td>
 				<td>${customer.name}</td>
 				<td>${customer.phone}</td>
 				<td>${customer.address}</td>
 				<td><button class="buttons customer-buttons btn-delete customer-delete-btn" data-index="${index}">Delete</button>
 				</td>
-			`;
-			customersTableBody.appendChild(row);
+			`);
+			customersTableBody.append($row);
 		});
 	}
 }
@@ -60,7 +60,7 @@ export function saveCustomer() {
 	// customersList.push(newCustomer);
 	customerModelInstance.saveCustomer(newCustomer);
 
-	updateDashboardStats();
+	resetDashboard();
 	resetCustomerpage();
 	
 }
@@ -76,14 +76,13 @@ document.addEventListener("click", (event) => {
 			customerDataList.forEach((customer, i) => {
 				if (i == index) {
 					customerModelInstance.deleteCustomer(customer.id);
-					
 					return;
 				}
 			});
 
 			console.log("Customer deleted:", customerDataList[index]);
 			loadCustomers();
-			updateDashboardStats();
+			resetDashboard();
 			loadCustomerTable();
 			resetOrderForm();
 		}
@@ -113,7 +112,7 @@ export function updateCustomer() {
 
 	customerModelInstance.updateCustomer(new Customer(id, name, phone, address));
 
-	updateDashboardStats();
+	resetDashboard();
 	resetCustomerpage();
 
 	alert("Customer updated successfully.");
@@ -198,4 +197,5 @@ export function resetCustomerpage() {
 	loadCustomers();
 	loadCustomerTable();
 	resetOrderForm();
+	resetDashboard();
 }

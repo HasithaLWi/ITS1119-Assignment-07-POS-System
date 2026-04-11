@@ -29,7 +29,7 @@ export class ItemModel {
 
     updateItem(updatedItem) {
         const index = itemDB.findIndex(item => item.id === updatedItem.id);
-        if (index !== undefined) {
+        if (index >= 0 && index < itemDB.length) {
             itemDB[index] = { ...itemDB[index], ...updatedItem };
             alert("Item updated successfully.");
         } else {
@@ -40,7 +40,7 @@ export class ItemModel {
     deleteItem(id) {
         const index = itemDB.findIndex(item => item.id === id);
         const orderDetails = ordersDetailsList.find(od => od.itemId === id);
-        if (index !== undefined) {
+        if (index >= 0 && index < itemDB.length) {
             if (orderDetails) {
                 alert("Cannot delete item. It is associated with an existing order.");
                 return;
