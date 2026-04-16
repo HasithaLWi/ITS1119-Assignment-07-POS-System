@@ -53,7 +53,7 @@
                 </svg>
                 POS System
             </div>
-            
+
             <nav>
                 <a href="#" class="nav-link nav-dashboard active" data-target="dashboard">Dashboard</a>
                 <a href="#" class="nav-link nav-orders" data-target="orders">Orders</a>
@@ -63,20 +63,24 @@
             </nav>
             <div class="header-actions">
                 <div class="accent-picker" id="accent-picker">
-                    <button id="color-theme-circle" class="color-circle" type="button" aria-label="Choose accent color" aria-expanded="false"></button>
-                    <div id="accent-palette" class="accent-palette hidden" role="menu" aria-label="Accent color options">
-                        <button class="accent-swatch" type="button" data-color="#f04b66" style="--swatch:#f04b66" aria-label="Rose accent"></button>
-                        <button class="accent-swatch" type="button" data-color="#ff8c00" style="--swatch:#ff8c00" aria-label="Orange accent"></button>
-                        <button class="accent-swatch" type="button" data-color="#f1c40f" style="--swatch:#f1c40f" aria-label="Yellow accent"></button>
-                        <button class="accent-swatch" type="button" data-color="#2ecc71" style="--swatch:#2ecc71" aria-label="Green accent"></button>
-                        <button class="accent-swatch" type="button" data-color="#3498db" style="--swatch:#3498db" aria-label="Blue accent"></button>
-                        <button class="accent-swatch" type="button" data-color="#9b59b6" style="--swatch:#9b59b6" aria-label="Violet accent"></button>
+                    <button id="color-theme-circle" class="color-circle" type="button" aria-label="Choose accent color"
+                        aria-expanded="false"></button>
+                    <div id="accent-palette" class="accent-palette hidden" role="menu"
+                        aria-label="Accent color options">
+                        <button class="accent-swatch" type="button" data-color="#f04b66" style="--swatch:#f04b66"
+                            aria-label="Rose accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#ff8c00" style="--swatch:#ff8c00"
+                            aria-label="Orange accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#f1c40f" style="--swatch:#f1c40f"
+                            aria-label="Yellow accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#2ecc71" style="--swatch:#2ecc71"
+                            aria-label="Green accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#3498db" style="--swatch:#3498db"
+                            aria-label="Blue accent"></button>
+                        <button class="accent-swatch" type="button" data-color="#9b59b6" style="--swatch:#9b59b6"
+                            aria-label="Violet accent"></button>
                     </div>
                 </div>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode" title="Switch theme">
-                    <span class="theme-icon" aria-hidden="true">🌙</span>
-                    <span class="theme-label">Dark</span>
-                </button>
                 <span id="user-btn" class="btn-user">
                     <img src="assets/user-logo.svg" alt="user-logo" class="user-logo">
                 </span>
@@ -211,10 +215,11 @@
                                     <input type="number" id="order-item-qty" min="1" value="1">
                                 </div>
                                 <div class="input-box qty-on-hand">
-                                    <label class="input-field-labels" >QTYonH:</label>
+                                    <label class="input-field-labels">QTYonH:</label>
                                     <input type="text" id="order-item-qty-on-hand" readonly>
                                 </div>
-                                <button class="buttons order-buttons add-to-cart-btn" id="add-to-cart" onclick="addItemToCart()">Add To
+                                <button class="buttons order-buttons add-to-cart-btn" id="add-to-cart"
+                                    onclick="addItemToCart()">Add To
                                     Cart</button>
 
                             </div>
@@ -222,19 +227,22 @@
 
                         <div class="summary-card">
                             <h2 class="total-text">Total: Rs <span id="order-total-display">0.00</span></h2>
-                            <h2 class="paid-text hidden" id="order-paid-amount">Amount Paid: Rs <span id="order-paid-display">0.00</span></h2>
+                            <h2 class="paid-text hidden" id="order-paid-amount">Amount Paid: Rs <span
+                                    id="order-paid-display">0.00</span></h2>
                             <h2 class="subtotal-text">Subtotal: Rs <span id="order-subtotal-display">0.00</span></h2>
 
                             <div class="order-summary-fields">
                                 <div class="input-box" id="cash-box">
                                     <label class="input-field-labels">Cash:</label>
                                     <input type="number" id="cash-input" min="0" step="0.01">
-                                    <label for="cash-input" class="input-field-labels error-label hidden" id="cash-error-label"></label>
+                                    <label for="cash-input" class="input-field-labels error-label hidden"
+                                        id="cash-error-label"></label>
                                 </div>
                                 <div class="input-box " id="discount-box">
                                     <label class="input-field-labels">Discount:</label>
                                     <input type="text" id="discount-input" value="0">
-                                    <label for="discount-input" class="input-field-labels error-label hidden" id="discount-error-label"></label>
+                                    <label for="discount-input" class="input-field-labels error-label hidden"
+                                        id="discount-error-label"></label>
                                 </div>
                                 <div class="input-box full-width">
                                     <label class="input-field-labels" id="balance-label">Balance:</label>
@@ -242,13 +250,17 @@
                                 </div>
                             </div>
                             <div class="summary-btns">
-                                <button class="buttons order-buttons btn-reset" id="order-reset" onclick="resetOrderForm()">Reset</button>
-                                <button class="buttons order-buttons btn-purchase" id="purchase-order" onclick="placeOrder()">Purchase
+                                <button class="buttons order-buttons btn-reset" id="order-reset"
+                                    onclick="resetOrderForm()">Reset</button>
+                                <button class="buttons order-buttons btn-purchase" id="purchase-order"
+                                    onclick="placeOrder()">Purchase
                                     Order</button>
                             </div>
                             <div class="order-update-btns hidden" id="order-update-btns">
-                                <button class="buttons order-buttons btn-delete" id="order-cancel" onclick="resetOrderForm()">Cancel</button>
-                                <button class="buttons order-buttons btn-update" id="update-order" onclick="updateOrder()">Update Order</button>
+                                <button class="buttons order-buttons btn-delete" id="order-cancel"
+                                    onclick="resetOrderForm()">Cancel</button>
+                                <button class="buttons order-buttons btn-update" id="update-order"
+                                    onclick="updateOrder()">Update Order</button>
                             </div>
                         </div>
                     </div>
@@ -269,9 +281,12 @@
                                 <input type="number" id="item-qty-input" placeholder="Stock Qty">
                             </div>
                             <div class="manage-buttons item-manage-buttons">
-                                <button class="buttons item-buttons btn-save" id="save-item" onclick="saveItem()">Save</button>
-                                <button class="buttons item-buttons btn-update" id="update-item" onclick="updateItem()">Update</button>
-                                <button class="buttons item-buttons btn-reset" id="reset-item" onclick="resetItemPage()">Reset</button>
+                                <button class="buttons item-buttons btn-save" id="save-item"
+                                    onclick="saveItem()">Save</button>
+                                <button class="buttons item-buttons btn-update" id="update-item"
+                                    onclick="updateItem()">Update</button>
+                                <button class="buttons item-buttons btn-reset" id="reset-item"
+                                    onclick="resetItemPage()">Reset</button>
                             </div>
                         </div>
 
@@ -316,9 +331,12 @@
                                 <input type="text" id="cust-address-input" placeholder="Address">
                             </div>
                             <div class="manage-buttons customer-manage-buttons">
-                                <button class="buttons customer-buttons btn-save" id="save-customer" onclick="saveCustomer()">Save</button>
-                                <button class="buttons customer-buttons btn-update" id="update-customer" onclick="updateCustomer()">Update</button>
-                                <button class="buttons customer-buttons btn-reset" id="reset-customer" onclick="resetCustomerpage()">Reset</button>
+                                <button class="buttons customer-buttons btn-save" id="save-customer"
+                                    onclick="saveCustomer()">Save</button>
+                                <button class="buttons customer-buttons btn-update" id="update-customer"
+                                    onclick="updateCustomer()">Update</button>
+                                <button class="buttons customer-buttons btn-reset" id="reset-customer"
+                                    onclick="resetCustomerpage()">Reset</button>
                             </div>
                         </div>
 
@@ -353,14 +371,15 @@
 
                 <div class="history-main-container">
                     <div class="manage-header align-center">
-                        <button class="buttons history-buttons btn-reset" id="history-reset" onclick="resetOrderHistory()">Reset</button>
+                        <button class="buttons history-buttons btn-reset" id="history-reset"
+                            onclick="resetOrderHistory()">Reset</button>
 
                         <div class="search-box history-search-box">
                             <div class="search-by-date">
                                 <label for="start-date" class="input-field-labels">Start Date:</label>
-                                <input type="date" id="start-date" class="filter-by-date" >
+                                <input type="date" id="start-date" class="filter-by-date">
                                 <label for="end-date" class="input-field-labels">End Date:</label>
-                                <input type="date" id="end-date" class="filter-by-date" >
+                                <input type="date" id="end-date" class="filter-by-date">
                             </div>
                             <input type="text" placeholder="Search ..." id="history-search">
                         </div>
@@ -404,10 +423,11 @@
             <p>v1.0.4 | Terminal: <strong>01</strong></p>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     <script type="module" src="script.js"></script>
-    
+
     <script type="module" src="controller/loginController.js"></script>
     <script type="module" src="controller/dashboardController.js"></script>
     <script type="module" src="controller/orderController.js"></script>
@@ -415,6 +435,12 @@
     <script type="module" src="controller/customerController.js"></script>
     <script type="module" src="controller/orderHistoryController.js"></script>
 
+    <!-- User Manager Overlay -->
+    <div id="user-manager-overlay"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); z-index: 10000; justify-content: center; align-items: center;">
+        <iframe src="user_manager.html"
+            style="width: 100%; height: 100%; border: none; background: transparent;"></iframe>
+    </div>
 
 </body>
 

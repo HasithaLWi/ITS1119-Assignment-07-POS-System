@@ -121,6 +121,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	initAccentPicker();
 	resetDashboard();
+
+	// User Manager Overlay Logic
+	const userBtn = document.getElementById("user-btn");
+	const userManagerOverlay = document.getElementById("user-manager-overlay");
+	if (userBtn && userManagerOverlay) {
+		userBtn.addEventListener("click", () => {
+			userManagerOverlay.style.display = "flex";
+		});
+	}
+
+	window.closeUserManager = function() {
+		if (userManagerOverlay) {
+			userManagerOverlay.style.display = "none";
+		}
+	};
 });
 
 // --- Navigation Logic ---

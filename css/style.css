@@ -1,23 +1,4 @@
-/* =========================================================
-   1. BASE VARIABLES & RESETS
-   ========================================================= */
 :root {
-    --bg-main: #eef3ff;
-    --bg-card: #ffffff;
-    --accent: #d84c6f;
-    --newAccent: #FF8C00;
-    --newAccent2: #FFD54F;
-
-    --text-main: #1d2333;
-    --text-muted: #55607a;
-    --header-bg: #ffffff;
-    --input-bg: #e8efff;
-    --btn-blue: #2f78d9;
-    --btn-green: #2f9f66;
-    --btn-orange: #db8c13;
-}
-
-body.light-mode {
     --bg-main: #eef3ff;
     --bg-card: #ffffff;
     --accent: #d84c6f;
@@ -45,19 +26,10 @@ body {
     color: var(--text-main);
 }
 
-/* =========================================================
-   2. TEMPORARY "ALL VIEWED" OVERRIDE
+/* ========================================================= 
+   setup hidden class
    ========================================================= */
-/* Delete or comment out this block when you add JavaScript navigation */
-.content-section {
-    display: block !important;
-    min-height: 100vh !important;
-    margin-bottom: 5rem; /* Adds breathing room between sections */
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1); /* Visual separator */
-    padding-bottom: 3rem;
-}
 
-/* Normal toggle classes (Will be used by JS later) */
 .hidden {
     display: none !important;
 }
@@ -65,14 +37,23 @@ body {
 /* =========================================================
    3. GLOBAL LAYOUT & HEADER
    ========================================================= */
+
+.content-section {
+    min-height: 100vh !important;
+    margin-bottom: 80px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-bottom: 48px;
+}
+
 main {
-    padding: 2rem 5%;
+    margin-top: 75px;
+    padding: 32px 5%;
 }
 
 .page-title {
-    font-size: 1.1rem;
+    font-size: 17.6px;
     font-weight: 500;
-    margin-bottom: 2rem;
+    margin-bottom: 32px;
     color: var(--text-main);
 }
 
@@ -80,9 +61,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 16px 32px;
     background-color: var(--header-bg);
-    border-bottom: 2px solid var(--bg-card);
+    border-bottom: 1px solid var(--accent);
     position: fixed;
     top: 0;
     left: 0;
@@ -137,20 +118,13 @@ header {
 }
 
 .accent-swatch.active {
-    border-color: var(--text-main);
+    border-color: var(--accent);
     transform: scale(1.05);
 }
 
-body.light-mode .color-circle {
-    border-color: rgba(29, 35, 51, 0.28);
-}
-
-body.light-mode .accent-palette {
-    border-color: rgba(29, 35, 51, 0.12);
-}
 
 /* Red accent line under the header */
-header::after {
+/* header::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -159,13 +133,13 @@ header::after {
     height: 1px;
     background-color: var(--accent);
     opacity: 0.5;
-}
+} */
 
 .logo {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: 0.5px;
@@ -173,48 +147,21 @@ header::after {
 
 nav {
     display: flex;
-    gap: 1.5rem;
+    gap: 24px;
     align-items: center;
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 12px;
 }
 
-.theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background-color: var(--bg-card);
-    color: var(--text-main);
-    padding: 0.4rem 0.7rem;
-    border-radius: 999px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.theme-toggle:hover {
-    border-color: var(--accent);
-}
-
-.theme-icon {
-    font-size: 0.9rem;
-    line-height: 1;
-}
-
-body.light-mode .theme-toggle {
-    border-color: rgba(29, 35, 51, 0.15);
-}
 
 .nav-link {
     text-decoration: none;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 14.4px;
     transition: all 0.2s ease;
     padding: 6px 16px;
     border-radius: 20px;
@@ -226,30 +173,68 @@ body.light-mode .theme-toggle {
 
 .nav-link.active {
     background-color: var(--accent);
-    color: var(--text-main);
+    color: white;
 }
 
 .btn-user {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: transparent !important;
+    border: 2px solid var(--accent);
     border-radius: 50%;
-    height: 35px;
-    width: 35px;
+    height: 42px;
+    width: 42px;
     cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
 }
 
-body.light-mode .btn-user {
-    background-color: var(--input-bg);
+.btn-user:hover {
+    border: 3px solid var(--accent);
 }
+
+/* User Head */
+.btn-user::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13px;
+    height: 13px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 2.5px 0px #d5dae3;
+    z-index: 2;
+}
+
+/* User Body */
+.btn-user::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 11px;
+    background-color: var(--accent);
+    border-radius: 12px 12px 4.5px 4.5px;
+    box-shadow: 0 2.5px 0px #d5dae3;
+    z-index: 2;
+}
+
+.user-logo {
+    display: none;
+}
+
 
 /* =========================================================
    4. LOGIN SECTION
    ========================================================= */
 .login-wrapper {
     width: 100%;
-    min-height: 85vh; 
+    min-height: 85vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -259,10 +244,10 @@ body.light-mode .btn-user {
     width: 100%;
     max-width: 420px;
     background-color: var(--bg-card);
-    padding: 3rem 2.5rem;
+    padding: 48px 40px;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
     position: relative;
     overflow: hidden;
 }
@@ -279,7 +264,7 @@ body.light-mode .btn-user {
 
 .login-header {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 40px;
 }
 
 .logo-circle {
@@ -291,26 +276,26 @@ body.light-mode .btn-user {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 1.2rem auto;
+    margin: 0 auto 19.2px auto;
 }
 
 .login-header h2 {
     color: var(--text-main);
-    font-size: 1.6rem;
+    font-size: 25.6px;
     font-weight: 600;
     letter-spacing: 0.5px;
-    margin-bottom: 0.4rem;
+    margin-bottom: 6.4px;
 }
 
 .login-header p {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 14.4px;
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 24px;
 }
 
 .form-group {
@@ -321,7 +306,7 @@ body.light-mode .btn-user {
 
 .form-group label {
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 13.6px;
     font-weight: 500;
     margin-left: 2px;
 }
@@ -333,7 +318,7 @@ body.light-mode .btn-user {
     color: var(--text-main);
     padding: 14px 16px;
     border-radius: 8px;
-    font-size: 0.95rem;
+    font-size: 15.2px;
     outline: none;
     transition: all 0.3s ease;
 }
@@ -354,10 +339,10 @@ body.light-mode .btn-user {
     border: none;
     padding: 14px;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 1rem;
+    margin-top: 16px;
     transition: all 0.2s ease;
     box-shadow: 0 4px 12px rgba(240, 75, 102, 0.3);
 }
@@ -374,7 +359,7 @@ body.light-mode .btn-user {
 
 .input-field-labels {
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 12.8px;
 }
 
 .search-box input {
@@ -383,7 +368,7 @@ body.light-mode .btn-user {
     color: var(--text-main);
     padding: 10px 12px;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 13.6px;
     outline: none;
 }
 
@@ -393,29 +378,29 @@ body.light-mode .btn-user {
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    gap: 24px;
+    margin-bottom: 40px;
 }
 
 .stat-card {
     background-color: var(--bg-card);
-    padding: 2.5rem 1.5rem;
+    padding: 40px 24px;
     border-radius: 6px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card h3 {
-    font-size: 0.95rem;
+    font-size: 15.2px;
     font-weight: 600;
     color: var(--text-main);
 }
 
 .stat-card p {
-    font-size: 1rem;
+    font-size: 16px;
     color: var(--text-muted);
 }
 
@@ -428,13 +413,15 @@ body.light-mode .btn-user {
    ========================================================= */
 .table-container {
     width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .table-header {
     background-color: var(--accent);
     color: var(--text-main);
-    padding: 12px 1rem;
-    font-size: 0.9rem;
+    padding: 12px 16px;
+    font-size: 14.4px;
     font-weight: 500;
     border-radius: 6px 6px 0 0;
     margin: 0;
@@ -452,21 +439,31 @@ thead tr {
 
 th {
     text-align: left;
-    padding: 14px 1rem;
-    font-size: 0.85rem;
+    padding: 14px 16px;
+    font-size: 13.6px;
     font-weight: 600;
     color: var(--text-main);
+    background-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    /* border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); */
+
 }
 
+
+
 td {
-    padding: 14px 1rem;
-    font-size: 0.85rem;
+    padding: 14px 16px;
+    font-size: 13.6px;
     color: var(--text-muted);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    /* Slightly softer inner glass borders */
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
 }
 
 tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 /* =========================================================
@@ -474,15 +471,16 @@ tbody tr:hover {
    ========================================================= */
 .order-main-container {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr; 
-    gap: 2rem;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 32px;
     align-items: start;
 }
 
-.left-column, .right-column {
+.left-column,
+.right-column {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 32px;
 }
 
 .form-card {
@@ -493,12 +491,12 @@ tbody tr:hover {
 
 .form-card-header {
     background-color: var(--accent);
-    padding: 12px 1rem;
+    padding: 12px 16px;
 }
 
 .form-card-header h3 {
     color: var(--text-main);
-    font-size: 0.9rem;
+    font-size: 14.4px;
     font-weight: 500;
 }
 
@@ -507,22 +505,23 @@ tbody tr:hover {
     background-color: var(--bg-card);
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    padding: 1.5rem;
+    padding: 24px;
 }
 
-.input-box, .comb-box {
+.input-box,
+.comb-box {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
 .input-box.full-width {
-    grid-column: span 2; 
+    grid-column: span 2;
 }
 
 /* .input-box label, .comb-box label {
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 12.8px;
 } */
 
 /* .input-box input, .comb-box select {
@@ -531,66 +530,69 @@ tbody tr:hover {
     color: var(--text-main);
     padding: 10px 12px;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 13.6px;
     outline: none;
     width: 100%;
     transition: background-color 0.2s;
 } */
 
 /* Optional tweak: Add a subtle border to your inputs to make them extra crisp */
-.input-box input, .comb-box select {
+.input-box input,
+.comb-box select {
     background-color: var(--input-bg);
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Adds a tiny bit of definition */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Adds a tiny bit of definition */
     color: var(--text-main);
     padding: 10px 12px;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 13.6px;
     outline: none;
     width: 100%;
     transition: all 0.2s ease;
 }
 
 /* And make the focus state a tiny bit lighter */
-.input-box input:focus, .comb-box select:focus {
-    background-color: #1a1e36; 
+.input-box input:focus,
+.comb-box select:focus {
+    background-color: #1a1e36;
     border-color: var(--text-muted);
 }
 
 .summary-card {
     background-color: var(--bg-card);
-    padding: 1.5rem;
+    padding: 24px;
     border-radius: 6px;
 }
 
 .total-text {
-    font-size: 1.4rem;
+    font-size: 22.4px;
     color: var(--text-main);
-    margin-bottom: 0.25rem;
+    margin-bottom: 4px;
 }
 
 .subtotal-text {
-    font-size: 1.1rem;
+    font-size: 17.6px;
     color: var(--btn-orange);
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
 }
 
 .paid-text {
-    font-size: 1.1rem;
+    font-size: 17.6px;
     color: var(--btn-green);
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
 }
 
 .order-summary-fields {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
 }
 
 .summary-btns {
     display: flex;
     gap: 10px;
-    margin-top: 1rem;
+    margin-top: 16px;
 }
 
 .order-update-btns {
@@ -598,7 +600,7 @@ tbody tr:hover {
     width: 100%;
     height: 40px;
     gap: 10px;
-    margin-top: 1rem;
+    margin-top: 16px;
 }
 
 .order-update-btns .btn-delete {
@@ -633,8 +635,8 @@ tbody tr:hover {
     background-color: var(--btn-blue);
     width: 100%;
     padding: 12px;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
+    margin-top: 24px;
+    font-size: 14.4px;
 }
 
 .btn-remove {
@@ -643,14 +645,28 @@ tbody tr:hover {
     border: none;
     padding: 6px 12px;
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 12.8px;
     cursor: pointer;
 }
 
-.btn-reset { background-color: var(--btn-orange); padding: 10px 20px; }
-.btn-purchase { background-color: var(--btn-green); padding: 10px 20px; flex-grow: 1; }
-.btn-save { background-color: var(--btn-green); }
-.btn-update { background-color: var(--btn-blue); }
+.btn-reset {
+    background-color: var(--btn-orange);
+    padding: 10px 20px;
+}
+
+.btn-purchase {
+    background-color: var(--btn-green);
+    padding: 10px 20px;
+    flex-grow: 1;
+}
+
+.btn-save {
+    background-color: var(--btn-green);
+}
+
+.btn-update {
+    background-color: var(--btn-blue);
+}
 
 .btn-delete {
     background-color: var(--accent);
@@ -658,41 +674,44 @@ tbody tr:hover {
     border: none;
     padding: 6px 16px;
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 12.8px;
     font-weight: 500;
     cursor: pointer;
     transition: opacity 0.2s ease;
 }
 
-.btn-delete:hover { opacity: 0.85; }
+.btn-delete:hover {
+    opacity: 0.85;
+}
 
 /* =========================================================
    9. ITEMS & CUSTOMERS SECTIONS
    ========================================================= */
-.item-main-container, .customer-main-container {
+.item-main-container,
+.customer-main-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 32px;
 }
 
 .manage-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 32px;
 }
 
 .manage-box {
     background-color: var(--bg-card);
-    padding: 1.5rem;
+    padding: 24px;
     border-radius: 6px;
-    flex: 1; 
+    flex: 1;
     max-width: 700px;
 }
 
 .form-inline {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr; 
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 15px;
 }
 
@@ -702,30 +721,36 @@ tbody tr:hover {
     color: var(--text-main);
     padding: 10px 12px;
     border-radius: 4px;
-    font-size: 0.85rem;
+    font-size: 13.6px;
     outline: none;
     width: 100%;
 }
 
-.form-inline input::placeholder { color: var(--text-muted); }
-.form-inline input:focus { background-color: #1a365d; }
+.form-inline input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-inline input:focus {
+    background-color: #1a365d;
+}
 
 .manage-buttons {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     gap: 10px;
     margin-top: 15px;
 }
 
-.item-buttons, .customer-buttons {
+.item-buttons,
+.customer-buttons {
     padding: 8px 16px;
-    font-size: 0.85rem;
+    font-size: 13.6px;
     color: white;
 }
 
 .item-search-box input,
 .customer-search-box input {
-    flex: 0 0 250px; 
+    flex: 0 0 250px;
 }
 
 .item-search-box input,
@@ -733,8 +758,13 @@ tbody tr:hover {
     width: 100%;
 }
 
-.search-box input::placeholder { color: var(--text-muted); }
-.search-box input:focus { background-color: #1a365d; }
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-box input:focus {
+    background-color: #1a365d;
+}
 
 /* =========================================================
    10. HISTORY SECTION
@@ -742,11 +772,11 @@ tbody tr:hover {
 .history-main-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 32px;
 }
 
 .manage-header.align-center {
-    align-items: center; 
+    align-items: center;
 }
 
 .history-search-box {
@@ -758,7 +788,7 @@ tbody tr:hover {
 
 .history-buttons {
     padding: 10px 24px;
-    font-size: 0.9rem;
+    font-size: 14.4px;
     color: white;
 }
 
@@ -781,23 +811,28 @@ tbody tr:hover {
 11.  Footer
    ======================================================== */
 
-   .system-footer {
+.system-footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 30px; /* Very slim */
+    height: 30px;
+    /* Very slim */
     background-color: var(--bg-card);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1.5rem;
-    font-size: 0.75rem;
+    padding: 0 24px;
+    font-size: 12px;
     color: var(--text-muted);
     z-index: 2000;
 }
 
-.footer-left { display: flex; align-items: center; gap: 8px; }
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
 /* Status light effect */
 .status-indicator.online {
@@ -822,93 +857,4 @@ tbody tr:hover {
 .footer-center strong:hover {
     color: var(--accent);
     cursor: default;
-}
-
-/* =========================================================
-   12. LIGHT MODE COLOR ACCENTS
-   ========================================================= */
-body.light-mode {
-    background-color: var(--bg-main);
-}
-
-/* body.light-mode header {
-    box-shadow: 0 10px 24px rgba(55, 93, 173, 0.08);
-} */
-
-/* body.light-mode .content-section {
-    border-bottom: 1px dashed rgba(80, 109, 170, 0.22);
-} */
-
-body.light-mode .login-container,
-body.light-mode .stat-card,
-body.light-mode .summary-card,
-body.light-mode .manage-box,
-body.light-mode thead tr,
-body.light-mode .system-footer {
-    box-shadow: 0 8px 24px rgba(53, 87, 156, 0.08);
-}
-
-body.light-mode .stat-card {
-    border: 1px solid #d9e4ff;
-    background: linear-gradient(165deg, #ffffff 0%, #f5f8ff 100%);
-}
-
-body.light-mode .stat-card:nth-child(1) {
-    border-top: 3px solid #2f78d9;
-}
-
-body.light-mode .stat-card:nth-child(2) {
-    border-top: 3px solid #2f9f66;
-}
-
-body.light-mode .stat-card:nth-child(3) {
-    border-top: 3px solid #db8c13;
-}
-
-body.light-mode .table-header,
-body.light-mode .form-card-header {
-    background: var(--accent);
-    color: #ffffff;
-}
-
-body.light-mode .card-header-text{
-    color: #ffffff;
-}
-
-body.light-mode .order-buttons {
-    color: #ffffff;
-}
-
-body.light-mode .nav-link.active{
-    background-color: var(--accent);
-    color: #ffffff;
-}
-
-body.light-mode thead tr {
-    background-color: #f4f8ff;
-}
-
-body.light-mode td {
-    border-bottom: 1px solid #e1e9fb;
-}
-
-body.light-mode tbody tr:hover {
-    background-color: #eaf1ff;
-}
-
-body.light-mode .input-wrapper input,
-body.light-mode .input-box input,
-body.light-mode .comb-box select,
-body.light-mode .form-inline input,
-body.light-mode .search-box input {
-    border: 1px solid #d3dffb;
-}
-
-body.light-mode .input-wrapper input:focus,
-body.light-mode .input-box input:focus,
-body.light-mode .comb-box select:focus,
-body.light-mode .form-inline input:focus,
-body.light-mode .search-box input:focus {
-    border-color: #2f78d9;
-    background-color: #f8fbff;
 }
