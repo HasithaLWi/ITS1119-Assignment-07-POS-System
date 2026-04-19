@@ -22,8 +22,14 @@
 }
 
 body {
-    background-color: var(--bg-main);
+    background-color: #FFFFFF;
     color: var(--text-main);
+}
+
+p,
+h3 {
+    padding: 0;
+    margin: 0;
 }
 
 /* =========================================================
@@ -257,12 +263,14 @@ nav {
     margin-bottom: 4px;
 }
 
-/* Placeholder color */
-.search-box input::placeholder,
-.form-inline input::placeholder {
-    color: var(--text-muted);
-}
 
+
+input::placeholder {
+    color: color-mix(in srgb, var(--text-main) 40%, transparent 60%);
+    font-size: 12px;
+    font-weight: 200;
+    font-family: 'Inter', sans-serif;
+}
 
 /* =========================================================
    LOGIN SECTION
@@ -450,7 +458,7 @@ nav {
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: transparent;
+    background-color: #FFFFFF;
 }
 
 thead tr {
@@ -777,9 +785,26 @@ tbody tr:hover {
     z-index: 2000;
 }
 
+
 .footer-left {
     display: flex;
+
+    justify-content: flex-start;
     align-items: center;
+    gap: 8px;
+}
+
+.footer-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     gap: 8px;
 }
 

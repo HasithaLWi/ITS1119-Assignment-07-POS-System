@@ -273,7 +273,7 @@
 
                 <div class="item-main-container">
                     <div class="manage-header">
-                        <div class="manage-box item-manage-box">
+                        <form class="manage-box item-manage-box" novalidate>
                             <div class="form-inline item-form-inline">
                                 <div class="item-code-input-group">
                                     <label for="item-code-input" class="input-field-labels">Item Code:</label>
@@ -299,14 +299,14 @@
                                 </div>
                             </div>
                             <div class="manage-buttons item-manage-buttons">
-                                <button class="buttons btn btn-outline-success" id="save-item"
+                                <button type="button" class="buttons btn btn-outline-success" id="save-item"
                                     onclick="saveItem()">Save</button>
-                                <button class="buttons btn btn-outline-primary" id="update-item"
+                                <button type="button" class="buttons btn btn-outline-primary" id="update-item"
                                     onclick="updateItem()">Update</button>
-                                <button class="buttons btn btn-outline-warning" id="reset-item"
+                                <button type="button" class="buttons btn btn-outline-warning" id="reset-item"
                                     onclick="resetItemPage()">Reset</button>
                             </div>
-                        </div>
+                        </form>
 
                         <div class="search-box item-search-box">
                             <input type="text" placeholder="Search ..." id="item-search">
@@ -341,7 +341,7 @@
 
                 <div class="customer-main-container">
                     <div class="manage-header">
-                        <div class="manage-box customer-manage-box">
+                        <form class="manage-box customer-manage-box" novalidate>
                             <div class="form-inline customer-form-inline">
                                 <div class="cust-id-input-group">
                                     <label for="cust-id-input" class="input-field-labels ">Customer ID:</label>
@@ -369,14 +369,14 @@
                                 </div>
                             </div>
                             <div class="manage-buttons customer-manage-buttons">
-                                <button class="buttons btn btn-outline-success" id="save-customer"
+                                <button type="button" class="buttons btn btn-outline-success" id="save-customer"
                                     onclick="saveCustomer()">Save</button>
-                                <button class="buttons btn btn-outline-primary" id="update-customer"
+                                <button type="button" class="buttons btn btn-outline-primary" id="update-customer"
                                     onclick="updateCustomer()">Update</button>
-                                <button class="buttons btn btn-outline-warning" id="reset-customer"
+                                <button type="button" class="buttons btn btn-outline-warning" id="reset-customer"
                                     onclick="resetCustomerpage()">Reset</button>
                             </div>
-                        </div>
+                        </form>
 
                         <div class="search-box customer-search-box">
                             <input type="text" placeholder="Search ..." id="customer-search">
