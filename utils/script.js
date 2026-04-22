@@ -7,7 +7,6 @@ import { addItemToCart, placeOrder, updateOrder, resetOrderForm } from "../contr
 import { resetOrderHistory } from "../controller/orderHistoryController.js";
 // import { resetDashboard } from "./controller/dashboardController.js";
 
-
 window.saveCustomer = saveCustomer;
 window.updateCustomer = updateCustomer;
 window.resetCustomerpage = resetCustomerpage;
@@ -21,12 +20,10 @@ window.updateOrder = updateOrder;
 window.resetOrderHistory = resetOrderHistory;
 
 
-
 function applyAccent(accentColor) {
 	document.body.style.setProperty("--accent", accentColor);
 
 
-	// Tell the iframe to update immediately without needing a reload
 	const iframe = document.querySelector("#user-manager-overlay iframe");
 	if (iframe && iframe.contentWindow) {
 		iframe.contentWindow.postMessage({ type: "SET_ACCENT", color: accentColor }, "*");
