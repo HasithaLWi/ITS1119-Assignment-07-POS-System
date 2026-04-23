@@ -13,7 +13,11 @@
     --btn-green: #2f9f66;
     --btn-orange: #db8c13;
 
-    --box-shadow-1: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* Glassmorphism tokens */
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.55);
+    --glass-blur: 20px;
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -24,8 +28,12 @@
 }
 
 body {
-    background-color: #FFFFFF;
+    /* add white varinat color it can see card properlu */
+    /* background: linear-gradient(135deg, #ffffff 0%, color-mix(in srgb, var(--accent) 30%, transparent 70%) 60%, #ffffff 100%); */
+    /* background-color: color-mix(in srgb, black 50%, transparent 50%); */
+    background-color: black;
     color: var(--text-main);
+    min-height: 100vh;
 }
 
 p,
@@ -70,8 +78,11 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 16px 32px;
-    background-color: var(--header-bg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     border-bottom: 1px solid var(--accent);
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
     position: fixed;
     top: 0;
     left: 0;
@@ -105,9 +116,11 @@ header {
     width: 126px;
     padding: 10px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background-color: var(--bg-card);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     z-index: 1200;
 }
 
@@ -288,11 +301,13 @@ input::placeholder {
 .login-container {
     width: 100%;
     max-width: 420px;
-    background-color: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--glass-border));
     padding: 48px 40px;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
     position: relative;
     overflow: hidden;
 }
@@ -413,15 +428,23 @@ input::placeholder {
 }
 
 .stat-card {
-    background-color: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    /* border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--glass-border)); */
     padding: 40px 24px;
-    border-radius: 6px;
+    border-radius: 12px;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    box-shadow: var(--box-shadow-1);
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.09);
 }
 
 .stat-card h3 {
@@ -436,7 +459,8 @@ input::placeholder {
 }
 
 .revenue-card {
-    border: 1px solid var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--glass-border));
+    box-shadow: 0 8px 32px color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 /* =========================================================
@@ -444,37 +468,56 @@ input::placeholder {
    ========================================================= */
 .table-container {
     width: 100%;
-    border-radius: 6px;
-    box-shadow: var(--box-shadow-1);
+    border-radius: 12px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    /* border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--glass-border)); */
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
 }
 
 .table-header {
-    background-color: var(--accent);
-    color: var(--bg-card);
-    padding: 12px 16px;
+    background: color-mix(in srgb, var(--accent) 20%, transparent 80%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-main);
+    padding: 14px 20px;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 6px 6px 0 0;
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     margin: 0;
+}
+
+.table-header {
+    display: none;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #FFFFFF;
+    background-color: transparent;
 }
 
-thead tr {
+
+
+/* thead tr {
     background-color: var(--bg-card);
-}
+} */
 
 th {
     text-align: left;
     padding: 14px 16px;
     font-size: 13.6px;
     font-weight: 600;
-    color: var(--text-main);
-    background-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    /* color: var(--text-main);
+    background-color: var(--accent); */
+    border-bottom: 1px solid var(--glass-border);
+    /* border-bottom: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); */
+    color: var(--accent);
+
 }
 
 td {
@@ -511,24 +554,38 @@ tbody tr:hover {
 
 .form-card {
 
-    border-radius: 6px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: var(--box-shadow-1);
+    /* background: var(--glass-bg); */
+    /* backdrop-filter: blur(var(--glass-blur)); */
+    /* -webkit-backdrop-filter: blur(var(--glass-blur)); */
+    /* border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--glass-border)); */
+    /* box-shadow: var(--glass-shadow); */
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
 }
 
 .form-card-header {
-    background-color: var(--accent);
-    padding: 12px 16px;
+    background: transparent;
+    border-bottom: 1px solid var(--glass-border);
+    padding: 14px 20px;
 }
 
 .form-card-header h3 {
-    font-size: 16px;
-    color: var(--bg-card);
-    font-weight: 600;
+    font-size: 18px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .form-card-field {
-    background-color: #FFFFFF;
+    background-color: transparent;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
@@ -560,10 +617,13 @@ tbody tr:hover {
 }
 
 .summary-card {
-    background-color: #FFFFFF;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    /* border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--glass-border)); */
     padding: 24px;
-    border-radius: 6px;
-    box-shadow: var(--box-shadow-1);
+    border-radius: 12px;
+    box-shadow: var(--glass-shadow);
 }
 
 .total-text {
@@ -675,12 +735,15 @@ tbody tr:hover {
 }
 
 .manage-box {
-    background-color: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    /* border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--glass-border)); */
     padding: 24px;
-    border-radius: 6px;
+    border-radius: 12px;
     flex: 1;
     max-width: 700px;
-    box-shadow: var(--box-shadow-1);
+    box-shadow: var(--glass-shadow);
 }
 
 .form-inline {
@@ -715,8 +778,11 @@ tbody tr:hover {
 .item-search-box input,
 .customer-search-box input {
     width: 100%;
-    background-color: #FFFFFF;
-    box-shadow: var(--box-shadow-1);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--glass-border));
+    box-shadow: var(--glass-shadow);
 }
 
 .item-search-box,
@@ -777,8 +843,10 @@ tbody tr:hover {
     left: 0;
     width: 100%;
     height: 30px;
-    background-color: var(--bg-card);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: space-between;
     align-items: center;
