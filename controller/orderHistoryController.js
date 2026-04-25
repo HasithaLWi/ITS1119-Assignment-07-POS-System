@@ -148,11 +148,24 @@ export function showOrderUpdateButton() {
 	const orderUpdateButtons = document.getElementById("order-update-btns");
 	const orderSubmitButtons = document.querySelector(".summary-btns");
 	const orderDueDisplay = document.getElementById("order-paid-amount");
+	const orderInvoiceCard = document.getElementById("order-invoice-card");
+	const orderItemSelectCard = document.getElementById("order-item-select-card");
+	const orderItemTable = document.getElementById("cart-item-table-container");
 
 	if (orderUpdateButtons && orderSubmitButtons) {
 		orderUpdateButtons.classList.remove("hidden");
 		orderDueDisplay.classList.remove("hidden");
 		orderSubmitButtons.classList.add("hidden");
+	}
+
+	if (orderInvoiceCard && orderItemSelectCard && orderItemTable) {
+		orderInvoiceCard.style.pointerEvents = "none";
+		orderItemSelectCard.style.pointerEvents = "none";
+		orderItemTable.style.pointerEvents = "none";
+
+		orderInvoiceCard.style.opacity = "0.8";
+		orderItemSelectCard.style.opacity = "0.8";
+		orderItemTable.style.opacity = "0.8";
 	}
 }
 
@@ -160,9 +173,22 @@ export function hideOrderUpdateButton() {
 	const orderUpdateButtons = document.getElementById("order-update-btns");
 	const orderSubmitButtons = document.querySelector(".summary-btns");
 	const orderDueDisplay = document.getElementById("order-paid-amount");
+	const orderInvoiceCard = document.getElementById("order-invoice-card");
+	const orderItemSelectCard = document.getElementById("order-item-select-card");
+	const orderItemTable = document.getElementById("cart-item-table-container");
+
 	if (orderUpdateButtons && orderSubmitButtons) {
 		orderUpdateButtons.classList.add("hidden");
 		orderDueDisplay.classList.add("hidden");
 		orderSubmitButtons.classList.remove("hidden");
+	}
+	if (orderInvoiceCard && orderItemSelectCard && orderItemTable) {
+		orderInvoiceCard.style.pointerEvents = "auto";
+		orderItemSelectCard.style.pointerEvents = "auto";
+		orderItemTable.style.pointerEvents = "auto";
+
+		orderInvoiceCard.style.opacity = "1";
+		orderItemSelectCard.style.opacity = "1";
+		orderItemTable.style.opacity = "1";
 	}
 }

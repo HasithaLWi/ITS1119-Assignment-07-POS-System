@@ -28,7 +28,7 @@
 
 
         <div class="search-box">
-          <input type="text" class="input-field user-search-box" placeholder="Search ...">
+          <input type="text" class="input-field user-search-box" id="user-search" placeholder="Search ...">
         </div>
 
 
@@ -39,48 +39,54 @@
           <div class="form-card-field">
             <div class="input-box">
               <label class="input-field-labels">User ID:</label>
-              <input type="text" class="input-field" readonly>
+              <input type="text" class="input-field user-id-input form-input" id="user-id-input" readonly>
               <div class="input-massege hidden" id="user-id-massege"></div>
             </div>
             <div class="input-box">
               <label class="input-field-labels">User Name:</label>
-              <input type="text" class="input-field">
+              <input type="text" class="input-field user-name-input form-input" id="user-name-input">
               <div class="input-massege hidden" id="user-name-massege"></div>
             </div>
             <div class="input-box">
               <label class="input-field-labels">Address:</label>
-              <input type="text" class="input-field">
+              <input type="text" class="input-field user-address-input form-input" id="user-address-input">
               <div class="input-massege hidden" id="user-address-massege"></div>
             </div>
             <div class="input-box">
               <label class="input-field-labels">Phone:</label>
-              <input type="text" class="input-field">
+              <input type="text" class="input-field user-phone-input form-input" id="user-phone-input">
               <div class="input-massege hidden" id="user-phone-massege"></div>
             </div>
             <div class="input-box">
+              <label class="input-field-labels">Email:</label>
+              <input type="email" class="input-field user-email-input form-input" id="user-email-input">
+              <div class="input-massege hidden" id="user-email-massege"></div>
+            </div>
+            <div class="input-box">
               <label class="input-field-labels">Username:</label>
-              <input type="text" class="input-field">
+              <input type="text" class="input-field user-username-input form-input" id="user-username-input">
               <div class="input-massege hidden" id="user-username-massege"></div>
             </div>
             <div class="input-box">
               <label class="input-field-labels">Password:</label>
-              <input type="password" class="input-field">
+              <input type="password" class="input-field user-password-input form-input" id="user-password-input">
               <div class="input-massege hidden" id="user-password-massege"></div>
             </div>
             <div class="input-box">
               <label class="input-field-labels">Role:</label>
-              <select class="input-field" required>
+              <select class="input-field user-role-input form-input" required id="user-role-input">
                 <option value="">Select Role</option>
                 <option value="Cashier">Cashier</option>
                 <option value="Manager">Manager</option>
                 <option value="Admin">Admin</option>
               </select>
+              <div class="input-massege hidden" id="user-role-massege"></div>
             </div>
           </div>
           <div class="manage-buttons user-manage-btns">
-            <button type="button" class="buttons btn btn-outline-success">Save</button>
-            <button type="button" class="buttons btn btn-outline-primary">Update</button>
-            <button type="button" class="buttons btn btn-outline-warning">Reset</button>
+            <button type="button" class="buttons btn btn-outline-success" id="user-save-btn">Save</button>
+            <button type="button" class="buttons btn btn-outline-primary" id="user-update-btn">Update</button>
+            <button type="button" class="buttons btn btn-outline-warning" id="user-reset-btn">Reset</button>
           </div>
         </form>
 
@@ -97,6 +103,7 @@
                   <th>Address</th>
                   <th>Phone</th>
                   <th>Username</th>
+                  <th>Email</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -110,6 +117,7 @@
 
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 

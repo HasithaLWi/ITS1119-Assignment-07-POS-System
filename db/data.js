@@ -21,9 +21,9 @@ export const itemDB = [
 ];
 
 export const usersDB = [
-	new User("USR-001", "admin", "admin123", "Admin", "Admin User", "Galle", "0709876543", "admin@example.com"),
-	new User("USR-002", "user1", "password1", "Cashier", "User One", "Colombo", "0712345678", "user1@example.com"),
-	new User("USR-003", "user2", "password2", "Cashier", "User Two", "Kandy", "0779876543", "user2@example.com")
+	new User("UID-001", "admin", "admin123", "Admin", "Admin User", "Galle", "0709876543", "admin@example.com"),
+	new User("UID-002", "user1", "password1", "Cashier", "User One", "Colombo", "0712345678", "user1@example.com"),
+	new User("UID-003", "user2", "password2", "Cashier", "User Two", "Kandy", "0779876543", "user2@example.com")
 ];
 
 export const ordersDetailsList = [

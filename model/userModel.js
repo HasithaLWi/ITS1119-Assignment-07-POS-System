@@ -23,6 +23,20 @@ export class UserModel {
         };
     }
 
+    getUserById(id) {
+        const user = usersDB.find(user => user.id === id);
+        if (!user) {
+            return { isError: true, title: "Error", message: "Invalid User ID.", type: "error", user: null };
+        }
+        return {
+            isError: false,
+            title: "Success",
+            message: "User found successfully.",
+            type: "success",
+            user: user
+        };
+    }
+
     getAllUsers() {
         if (usersDB.length === 0) {
             return { isEmpty: true, users: [] };
@@ -33,15 +47,44 @@ export class UserModel {
 
     saveUser(newUser) {
         usersDB.push(newUser);
+        return { isError: false, title: "Success", message: "User saved successfully.", type: "success" };
     }
 
+    // Update user
+    updateUser(user) {
+        const index = usersDB.findIndex(u => u.id === user.id);
+        if (index >= 0 && index < usersDB.length) {
+            usersDB[index] = { ...usersDB[index], ...user };
+            return { isError: false, title: "Success", message: "User updated successfully.", type: "success" };
+        } else {
+            return { isError: true, title: "Error", message: "Invalid User ID.", type: "error" };
+        }
+    }
+
+    // Delete user
     deleteUser(userId) {
-        const index = usersDB.findIndex(user => user.id === userId);
+        const index = usersDB.findIndex(u => u.id === userId);
+        if (usersDB[index].id == "UID-001") {
+            return { isError: true, title: "Error", message: "System Admin Cannot Be Deleted", type: "error" };
+        }
         if (index >= 0 && index < usersDB.length) {
             usersDB.splice(index, 1);
+            return { isError: false, title: "Success", message: "User deleted successfully.", type: "success" };
         } else {
-            alert("Invalid User ID.");
+            return { isError: true, title: "Error", message: "Invalid User ID.", type: "error" };
         }
+    }
+
+    generateNewUserId() {
+        const maxId = usersDB.reduce((max, user) => {
+            const numPart = parseInt(user.id.split("-")[1], 10);
+            return Math.max(max, numPart);
+        }, 0);
+        return this.formatUserId(maxId + 1);
+    }
+
+    formatUserId(id) {
+        return `UID-${String(id).padStart(3, "0")}`;
     }
 }
 

@@ -103,6 +103,13 @@ export function loadCartTable() {
 		return;
 	}
 	cartTableBody.innerHTML = "";
+	if (itemCartList.length === 0) {
+		const row = document.createElement("tr");
+		row.innerHTML = `<td colspan="6">No items in cart</td>`;
+		cartTableBody.appendChild(row);
+		return;
+	}
+
 	itemCartList.forEach((detail, index) => {
 
 

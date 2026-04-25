@@ -4,7 +4,6 @@ import { resetOrderHistory } from "./orderHistoryController.js";
 import { resetCustomerpage } from "./customerController.js";
 import { resetItemPage } from "./itemController.js";
 import { UserModel } from "../model/userModel.js";
-import { resetUserPage } from "../controller/userController.js";
 import { showAlert } from "../utils/showAlert.js";
 
 const userModelInstance = new UserModel();
@@ -48,6 +47,5 @@ loginBtn.addEventListener("click", (event) => {
     resetOrderForm();
     resetOrderHistory();
     resetDashboard();
-    resetUserPage();
 
 });

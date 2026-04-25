@@ -308,7 +308,7 @@ tbody tr:hover {
 }
 
 .user-delete-btn,
-.user-update-btn {
+.user-table-update-btn {
     font-size: 18px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -320,8 +320,31 @@ tbody tr:hover {
     transform: scale(1.2);
 }
 
-.user-update-btn:hover {
+.user-table-update-btn:hover {
     color: var(--primary-color);
     background-color: transparent;
     transform: scale(1.2);
+}
+
+.swal2-popup {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(var(--glass-blur)) !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+.swal2-confirm {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+}
+
+.swal2-cancel {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    color: #f0f0f0 !important;
+    border: 1px solid var(--glass-border) !important;
 }
