@@ -38,6 +38,20 @@ loginBtn.addEventListener("click", (event) => {
         resetLoginPage();
         return;
     }
+
+
+    // Authentication
+    const userManageBtn = document.getElementById("side-profile");
+    userManageBtn.style.display = "none";
+
+    if (getUserByUsername(username).user.role === "Admin") {
+        document.getElementById("sidebar-user-role").innerText = "ADMIN";
+        userManageBtn.style.display = "flex";
+    } else {
+        document.getElementById("sidebar-user-role").innerText = "CASHIER";
+        userManageBtn.style.display = "none";
+    }
+
     resetLoginPage();
 
 
