@@ -200,7 +200,7 @@ export function resetOrderForm() {
 	document.getElementById("order-item-select").value = "";
 	document.getElementById("order-item-qty").value = 1;
 	document.getElementById("discount-input").value = 0;
-	document.getElementById("cash-input").value = `${(0).toFixed(2)}`;
+	document.getElementById("cash-input").value = "";
 	document.getElementById("balance-display").value = `${(0).toFixed(2)}`;
 	document.getElementById("order-total-display").textContent = `${(0).toFixed(2)}`;
 	document.getElementById("order-subtotal-display").textContent = `${(0).toFixed(2)}`;

@@ -20,9 +20,7 @@
 
                 <div class="login-header">
                     <div class="logo-circle">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
+                        <i class="bi bi-lightning-charge-fill fs-3"></i>
                     </div>
                     <h2 id="welcome-message">Welcome Back</h2>
                     <p>Sign in to access the POS System</p>
@@ -51,9 +49,7 @@
     <div id="main-app" class="main-content hidden">
         <header class="system-header">
             <div class="logo">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="logo-icon">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
+                <i class="bi bi-lightning-charge-fill"></i>
                 POS System
             </div>
             <nav>
@@ -242,12 +238,13 @@
                             <div class="order-summary-fields">
                                 <div class="input-box" id="cash-box">
                                     <label class="input-field-labels">Cash:</label>
-                                    <input class="input-field" type="number" id="cash-input" min="0" step="0.01">
+                                    <input class="input-field" type="number" id="cash-input" min="0" step="0.01"
+                                        placeholder="0.00">
                                     <label for="cash-input" class="input-field-labels error-label hidden"
                                         id="cash-error-label"></label>
                                 </div>
                                 <div class="input-box " id="discount-box">
-                                    <label class="input-field-labels">Discount:</label>
+                                    <label class="input-field-labels">Discount(%):</label>
                                     <input class="input-field" type="text" id="discount-input" value="0">
                                     <label for="discount-input" class="input-field-labels error-label hidden"
                                         id="discount-error-label"></label>
